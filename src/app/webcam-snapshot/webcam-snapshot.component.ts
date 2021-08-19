@@ -1,18 +1,18 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
-  selector: "app-webcam-snapshot",
-  templateUrl: "./webcam-snapshot.component.html",
-  styleUrls: ["./webcam-snapshot.component.scss"]
+  selector: 'app-webcam-snapshot',
+  templateUrl: './webcam-snapshot.component.html',
+  styleUrls: ['./webcam-snapshot.component.scss']
 })
 export class WebcamSnapshotComponent implements AfterViewInit {
   WIDTH = 640;
   HEIGHT = 480;
 
-  @ViewChild("video")
+  @ViewChild('video')
   public video: ElementRef;
 
-  @ViewChild("canvas")
+  @ViewChild('canvas')
   public canvas: ElementRef;
 
   captures: string[] = [];
@@ -34,28 +34,28 @@ export class WebcamSnapshotComponent implements AfterViewInit {
           this.video.nativeElement.play();
           this.error = null;
         } else {
-          this.error = "You have no output video device";
+          this.error = 'You have no output video device';
         }
       } catch (e) {
         this.error = e;
       }
     }
 
-    navigator.mediaDevices.enumerateDevices()
-    .then(function(devices) {
-      devices.forEach(function(device) {
-        alert(device.kind + ": " + device.label +
-                " id = " + device.deviceId);
-    });
-})
-.catch(function(err) {
-  console.log(err.name + ": " + err.message);
-});
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(function(devices) {
+        devices.forEach(function(device) {
+          alert(device.kind + ': ' + device.label + ' id = ' + device.deviceId);
+        });
+      })
+      .catch(function(err) {
+        console.log(err.name + ': ' + err.message);
+      });
   }
 
   capture() {
     this.drawImageToCanvas(this.video.nativeElement);
-    this.captures.push(this.canvas.nativeElement.toDataURL("image/png"));
+    this.captures.push(this.canvas.nativeElement.toDataURL('image/png'));
     this.isCaptured = true;
   }
 
@@ -72,7 +72,7 @@ export class WebcamSnapshotComponent implements AfterViewInit {
 
   drawImageToCanvas(image: any) {
     this.canvas.nativeElement
-      .getContext("2d")
+      .getContext('2d')
       .drawImage(image, 0, 0, this.WIDTH, this.HEIGHT);
   }
 }
